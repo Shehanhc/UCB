@@ -7,7 +7,7 @@ arm_means = {}
 arm_estimates = {}
 arm_selection_count = {}
 highest_mean = 0
-root_value = 2
+degree_of_exploration = 2
 cumulative_reward = 0
 
 
@@ -45,7 +45,7 @@ def get_ucb_arm(current_step):
             current_highest_arm = key
             current_highest_value = 1000
         else:
-            ucb_unit = ((math.log(current_step)/arm_selection_count[key])**(1/root_value))
+            ucb_unit = (degree_of_exploration * ((math.log(current_step)/arm_selection_count[key])**(1/2)))
             current_value = arm_estimates[key] + ucb_unit
 
             if current_value > current_highest_value:
@@ -59,9 +59,9 @@ def get_ucb_arm(current_step):
 for arm in range(number_of_arms):
     # Generate a random mean between -1 and 3
     # arm_mean = round(random.uniform(-1, 3), 2)
-    # arm_mean = (arm+1)*(arm+1)
+    arm_mean = (arm+1)*(arm+1)
     # arm_mean = (arm+1)*2
-    arm_mean = arm+1
+    # arm_mean = arm+1
 
     # Set the newly generated mean for the arm
     arm_means.update({arm+1: arm_mean})
